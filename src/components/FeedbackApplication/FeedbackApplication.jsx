@@ -2,6 +2,7 @@ import React, {Component } from 'react';
 import Statistics from '../Statistics/Statistics'
 import FeedbackOptions from '../FeedbackOptions/FeedbackOptions'
 import Section from 'components/Section/Section';
+
 class FeedbackApplication extends Component {
     state = {
         good: 0,
