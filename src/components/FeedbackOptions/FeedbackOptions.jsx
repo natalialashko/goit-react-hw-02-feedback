@@ -1,17 +1,20 @@
-import React, {Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {BtnFeedbackOptions, SectionOption } from './FeedbackOptions.styled'
+
 class FeedbackOptions extends Component {
   render() {
     const { options, onLeaveFeedback } = this.props;
     // console.log(this.props)
     return (
-      <div>
+      <SectionOption>
         {options.map((btn) => (
-          <button key={btn}
+          <BtnFeedbackOptions key={btn}
             onClick={() => onLeaveFeedback(btn)}
           >
-            {btn}</button>)
+            {btn}</BtnFeedbackOptions>)
         )}
-      </div>
+      </SectionOption>
    
        
     )
@@ -19,3 +22,7 @@ class FeedbackOptions extends Component {
 }
 export default FeedbackOptions;
 
+FeedbackOptions.propTypes = {
+  options: PropTypes.array,
+  onLeaveFeedback:PropTypes.func
+}

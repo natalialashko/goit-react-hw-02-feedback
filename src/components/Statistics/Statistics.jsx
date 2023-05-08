@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Notification from 'components/Notification/Notification';
+import { SectionStatistics, NameStat, ContainerStat } from './Statistics.styled';
+
 class Statistics extends Component {
   render() {
     const { good, neutral, bad, total, positivePercentage } = this.props.stats;
 
     return (
-      <div>
+      <SectionStatistics>
         {total ? (
-          <div>
-            <p>Good {good} </p>
-            <p>Neutral: {neutral} </p>
-            <p>Bad: {bad} </p>
-            <p>Total: {total} </p>
-            <p>Positive feedback: {positivePercentage} % </p>
-          </div>
+          <ContainerStat>
+            <NameStat>Good {good} </NameStat>
+            <NameStat>Neutral: {neutral} </NameStat>
+            <NameStat>Bad: {bad} </NameStat>
+            <NameStat>Total: {total} </NameStat>
+            <NameStat>Positive feedback: {positivePercentage} % </NameStat>
+          </ContainerStat>
         ) : (
           <Notification message="There is no feedback" />
         )}
-      </div>
+      </SectionStatistics>
     );
   }
 }
 
 export default Statistics;
+
+Statistics.propTypes = {
+  stats: PropTypes.object,
+}

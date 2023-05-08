@@ -1,17 +1,47 @@
-import React from 'react';
-import FeedbackApplication from './FeedbackApplication/FeedbackApplication';
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-     <FeedbackApplication/> 
-    </div>
-  );
+import React, {Component } from 'react';
+
+import Statistics from './Statistics/Statistics'
+import FeedbackOptions from './FeedbackOptions/FeedbackOptions'
+import Section from 'components/Section/Section';
+import {Container} from './App.styled'
+export class App extends Component {
+    state = {
+        good: 0,
+        neutral: 0,
+        bad: 0,
+  };
+  handleFeedback = (type) => {
+    console.log(type)
+    this.setState((prevState) => ({[type]:prevState[type] + 1}))
+  }
+  countTotalFeedback = (good, neutral, bad) => {
+      return good+neutral+bad
+    }
+  countPositiveFeedbackPercentage = (good, neutral, bad) => {
+    let total = good + neutral + bad;
+    return (
+       total === 0 ? 0 : ((good / total) * 100).toFixed(0)
+      )
+    }
+  render() {
+    const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback(good, neutral, bad);
+    const options = ['good', 'neutral', 'bad'];
+    const positivePercentage = this.countPositiveFeedbackPercentage(good, neutral, bad);
+   
+    return (
+      <Container >
+        
+        <Section title="Please leave feedback">
+        <FeedbackOptions options={ options } onLeaveFeedback={this.handleFeedback.bind(this)}  />
+        </Section>
+        <Section title="Statistics">
+        <Statistics stats={{ good, neutral, bad, total, positivePercentage }} />
+        </Section>
+     </Container>
+        
+      )
+    
+  }
 };
+
